@@ -21,6 +21,12 @@
                     <span class="link-title">{{ __('messages.dashboard') }}</span>
                 </a>
             </li>
+            <li class="nav-item {{ request()->segment(2) === 'categories' ? 'active' : '' }}">
+                <a href="{{ route('categories.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="tag"></i>
+                    <p class="link-title">{{ __('messages.categories') }}</p>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

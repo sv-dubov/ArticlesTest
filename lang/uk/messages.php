@@ -9,6 +9,7 @@ return [
     'filter' => 'Фільтр',
     'reset' => 'Скинути',
     'cancel' => 'Відмінити',
+    'add' => 'Додати',
     'edit' => 'Редагувати',
     'details' => 'Детальніше',
     'delete' => 'Видалити',
@@ -37,7 +38,7 @@ return [
     'lang_uk' => 'Українська',
     'lang_pl' => 'Польська',
     'lang_en' => 'Англійська',
-    'successfully_saved' => 'Успішно додано',
+    'successfully_added' => 'Успішно додано',
     'successfully_edited' => 'Успішно відредаговано',
     'successfully_deleted' => 'Успішно видалено',
     'choose' => 'Вибрати',
@@ -48,4 +49,6 @@ return [
     'publish' => 'Опублікувати',
     'published' => 'Опубліковано',
     'not_published' => 'Неопубліковано',
+    'category' => 'Категорія',
+    'categories' => 'Категорії',
 ];
