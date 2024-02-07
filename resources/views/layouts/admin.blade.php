@@ -15,24 +15,23 @@
     <link rel="stylesheet" href="{{asset('assets/vendors/flag-icon-css/css/flag-icon.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/sidebar-left/style.css')}}">
     <link rel="stylesheet" href="{{asset('assets/vendors/select2/select2.min.css')}}">
-    <link rel="shortcut icon" href="{{asset('favicon.ico')}}" />
+    <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}" />
 </head>
 
 <body>
 <div class="main-wrapper">
-
-    @include("partials.sidebar")
+    @include('admin.partials._sidebar')
 
     <div class="page-wrapper">
-
-        @include("partials.navbar")
+        @include('admin.partials._navbar')
 
         <div class="page-content">
-            @yield("content")
+            @include('admin.partials._message-success')
+
+            @yield('content')
         </div>
 
-        @include("partials.footer")
-
+        @include('admin.partials._footer')
     </div>
 </div>
 

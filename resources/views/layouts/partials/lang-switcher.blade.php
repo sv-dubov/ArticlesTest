@@ -16,7 +16,13 @@
     <div class="dropdown-menu" aria-labelledby="languageDropdown" id="dropdown-lang">
         @foreach($languages as $lang)
             <a href="{{ route('change_lang', $lang) }}" class="dropdown-item py-2 lang-link" id="{{ $lang }}">
-                <i class="flag-icon flag-icon-{{ $lang }}" title="{{ $lang }}" id="{{ $lang }}"></i>
+                @if($lang == 'uk')
+                    <i class="flag-icon flag-icon-ua" title="{{ $lang }}" id="{{ $lang }}"></i>
+                @elseif($lang == 'en')
+                    <i class="flag-icon flag-icon-gb" title="{{ $lang }}" id="{{ $lang }}"></i>
+                @else
+                    <i class="flag-icon flag-icon-{{ $lang }}" title="{{ $lang }}" id="{{ $lang }}"></i>
+                @endif
                 <span class="ms-1">{{ __('messages.lang_' . $lang) }}</span>
             </a>
         @endforeach
