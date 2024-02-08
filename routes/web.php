@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
@@ -31,5 +32,6 @@ Route::group(['middleware' => 'language'], function () {
     Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
         Route::resource('/categories', CategoryController::class)->except('show');
+        Route::resource('/articles', AdminArticleController::class);
     });
 });

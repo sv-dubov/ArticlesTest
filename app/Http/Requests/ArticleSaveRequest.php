@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Astrotomic\Translatable\Validation\RuleFactory;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class ArticleSaveRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,12 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return RuleFactory::make([
+            'category_id' => 'required|numeric|exists:categories,id',
             '%title%' => 'nullable|min:2|max:255',
+            '%subtitle%' => 'nullable|min:2|max:255',
             'slug' => 'required|min:2|max:255',
+            'image' => 'nullable|image|mimes:jpg,png',
+            'publish_date' => 'nullable|date',
             'is_public' => 'boolean',
         ]);
     }
@@ -55,8 +59,12 @@ class CategoryRequest extends FormRequest
     public function attributes()
     {
         return RuleFactory::make([
+            'category_id' => __('messages.category'),
             '%title%' => __('messages.title'),
+            '%subtitle%' => __('messages.subtitle'),
             'slug' => __('messages.slug'),
+            'image' => __('messages.image'),
+            'publish_date' => __('messages.publish_date'),
             'is_public' => __('messages.is_public'),
         ]);
     }

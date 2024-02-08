@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\CategorySaveRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -20,7 +20,7 @@ class CategoryController extends Controller
         return view('admin.categories.create');
     }
 
-    public function store(CategoryRequest $request)
+    public function store(CategorySaveRequest $request)
     {
         Category::create($request->validated());
 
@@ -32,7 +32,7 @@ class CategoryController extends Controller
         return view('admin.categories.edit', compact('category'));
     }
 
-    public function update(Category $category, CategoryRequest $request)
+    public function update(Category $category, CategorySaveRequest $request)
     {
         $category->update($request->validated());
 

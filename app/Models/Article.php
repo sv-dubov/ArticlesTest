@@ -6,9 +6,10 @@ use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 
-class Category extends Model implements TranslatableContract
+class Article extends Model implements TranslatableContract
 {
     use HasFactory, Translatable;
 
@@ -16,21 +17,26 @@ class Category extends Model implements TranslatableContract
     const NOT_PUBLIC = 0;
 
     protected $fillable = [
+        'category_id',
         'slug',
+        'image',
+        'publish_date',
         'is_public',
     ];
 
     protected $casts = [
         'is_public' => 'boolean',
+        'publish_date' => 'date',
     ];
 
     public $translatedAttributes = [
         'title',
+        'subtitle',
     ];
 
-    public function articles(): HasMany
+    public function category(): BelongsTo
     {
-        return $this->hasMany(Article::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function scopeFilter($query, $request)
@@ -45,5 +51,13 @@ class Category extends Model implements TranslatableContract
         return ($this->is_public == self::PUBLIC)
             ? __('messages.published')
             : __('messages.not_published');
+    }
+
+    public function getArticleImage()
+    {
+        if (is_null($this->image)) {
+            return '/img/no-image.png';
+        }
+        return Storage::url('uploads/articles/' . $this->image);
     }
 }

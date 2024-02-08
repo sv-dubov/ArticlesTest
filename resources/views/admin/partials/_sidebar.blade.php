@@ -17,7 +17,7 @@
             <li class="nav-item nav-category">{{ __('messages.main_page') }}</li>
             <li class="nav-item {{ Route::is('admin.dashboard') ? 'active' : '' }}">
                 <a href="{{ route('admin.dashboard') }}" class="nav-link">
-                    <i class="link-icon" data-feather="box"></i>
+                    <i class="link-icon" data-feather="home"></i>
                     <span class="link-title">{{ __('messages.dashboard') }}</span>
                 </a>
             </li>
@@ -25,6 +25,12 @@
                 <a href="{{ route('categories.index') }}" class="nav-link">
                     <i class="link-icon" data-feather="tag"></i>
                     <p class="link-title">{{ __('messages.categories') }}</p>
+                </a>
+            </li>
+            <li class="nav-item {{ request()->segment(2) === 'articles' ? 'active' : '' }}">
+                <a href="{{ route('articles.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="file-text"></i>
+                    <p class="link-title">{{ __('messages.articles') }}</p>
                 </a>
             </li>
         </ul>
