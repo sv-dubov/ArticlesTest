@@ -27,6 +27,7 @@ return [
     'remember_me' => 'Запам’ятати',
     'date' => 'Дата',
     'created_at' => 'Дата створення',
+    'updated_at' => 'Дата редагування',
     'dashboard' => 'Панель керування',
     'main_page' => 'Головна',
     'upload_file' => 'Завантажити файл',

@@ -32,6 +32,6 @@ Route::group(['middleware' => 'language'], function () {
     Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
         Route::resource('/categories', CategoryController::class)->except('show');
-        Route::resource('/articles', AdminArticleController::class);
+        Route::resource('/articles', AdminArticleController::class)->except('show');
     });
 });

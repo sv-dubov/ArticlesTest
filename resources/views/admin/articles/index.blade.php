@@ -24,9 +24,21 @@
                         {{ Form::text('title', request()->title ?? null, ['class' => 'form-control', 'id' => 'title']) }}
                     </div>
                     <div class="col-md-4 mb-3">
+                        {{ Form::label('category', __('messages.category'), ['class' => 'form-label fw-bold']) }}
+                        {{ Form::select('category', $categories, request()->category ?? null, ['class' => 'form-select', 'placeholder' => __('messages.choose_category'), 'id' => 'category']) }}
+                    </div>
+                    <div class="col-md-4 mb-3">
                         {{ Form::label('is_public', __('messages.status'), ['class' => 'form-label fw-bold']) }}
                         {{ Form::select('is_public', ['1' => __('messages.published'), '0' => __('messages.not_published')], request()->is_public ?? null,
-                            ['class' => 'form-control', 'placeholder' => __('messages.choose_status'), 'id' => 'is_public']) }}
+                            ['class' => 'form-select', 'placeholder' => __('messages.choose_status'), 'id' => 'is_public']) }}
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label for="date_from" class="form-label fw-bold">{{ __('messages.from') }}</label>
+                        {{ Form::date('date_from', request()->date_from ?? null, ['class' => 'form-control', 'id' => 'date_from']) }}
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label for="date_to" class="form-label fw-bold">{{ __('messages.to') }}</label>
+                        {{ Form::date('date_to', request()->date_to ?? null, ['class' => 'form-control', 'id' => 'date_to']) }}
                     </div>
                     <div class="col-md-4 mb-3 d-flex gap-1 flex-wrap align-items-end">
                         <button class="btn btn-success" type="submit">{{ __('messages.search') }}</button>
@@ -46,45 +58,31 @@
                 <table id="dataTableExample" class="table table-hover table-bordered">
                     <thead>
                     <tr>
-                        <th>#</th>
+                        <th>ID</th>
                         <th>{{ __('messages.title') }}</th>
+                        <th>{{ __('messages.link') }}</th>
                         <th>{{ __('messages.status') }}</th>
-                        <th>{{ __('messages.actions') }}</th>
+                        <th>{{ __('messages.created_at') }}</th>
+                        <th>{{ __('messages.updated_at') }}</th>
+                        <th class="text-center">{{ __('messages.actions') }}</th>
                     </tr>
                     </thead>
                     @foreach($articles->chunk(50) as $row)
                         @foreach($row as $article)
                             <tbody>
                             <tr>
-                                <th scope="row">{{ $articles->firstItem() + $loop->index }}</th>
+                                <th>{{ $article->id }}</th>
                                 <td class="text-wrap">{{ $article->title }}</td>
+                                <td class="text-wrap">{{ $article->slug }}</td>
                                 <td>{{ $article->isPublic() }}</td>
-                                <td class="text-center">
-                                    <div class="dropdown">
-                                        <button class="btn btn-link text-dark px-0" type="button" data-bs-toggle="dropdown">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                 fill="currentColor" class="bi bi-three-dots-vertical"
-                                                 viewBox="0 0 16 16">
-                                                <path
-                                                    d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-                                            </svg>
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end"
-                                            aria-labelledby="dropdownMenuButton">
-                                            <li>
-                                                <a class="dropdown-item"
-                                                   href="{{ route('articles.edit', $article->id) }}">{{ __('messages.edit') }}</a>
-                                            </li>
-                                            <li>
-                                                <hr class="dropdown-divider">
-                                            </li>
-                                            <li>
-                                                {{ Form::model($article, ['route' => ['articles.destroy', $article->id], 'method' => 'delete', 'class' => 'form-delete', 'data-delete-id' => $article->id]) }}
-                                                <button type="submit"
-                                                        class="dropdown-item">{{ __('messages.delete') }}</button>
-                                                {{ Form::close() }}
-                                            </li>
-                                        </ul>
+                                <td>{{ $article->created_at->format('d.m.Y H:i') }}</td>
+                                <td>{{ $article->updated_at->format('d.m.Y H:i') }}</td>
+                                <td>
+                                    <div class="d-flex justify-content-center align-items-center gap-2 flex-wrap grid-margin">
+                                        <a class="btn icon" href="{{ route('articles.edit', $article->id) }}"><i class="text-warning" data-feather="edit"></i></a>
+                                        {{ Form::model($article, ['route' => ['articles.destroy', $article->id], 'method' => 'delete', 'class' => 'form-delete', 'data-delete-id' => $article->id]) }}
+                                        <button type="submit" class="btn icon"><i class="text-danger" data-feather="delete"></i></button>
+                                        {{ Form::close() }}
                                     </div>
                                 </td>
                             </tr>

@@ -26,7 +26,7 @@
                     <div class="col-md-4 mb-3">
                         {{ Form::label('is_public', __('messages.status'), ['class' => 'form-label fw-bold']) }}
                         {{ Form::select('is_public', ['1' => __('messages.published'), '0' => __('messages.not_published')], request()->is_public ?? null,
-                            ['class' => 'form-control', 'placeholder' => __('messages.choose_status'), 'id' => 'is_public']) }}
+                            ['class' => 'form-select', 'placeholder' => __('messages.choose_status'), 'id' => 'is_public']) }}
                     </div>
                     <div class="col-md-4 mb-3 d-flex gap-1 flex-wrap align-items-end">
                         <button class="btn btn-success" type="submit">{{ __('messages.search') }}</button>
@@ -49,7 +49,7 @@
                         <th>#</th>
                         <th>{{ __('messages.title') }}</th>
                         <th>{{ __('messages.status') }}</th>
-                        <th>{{ __('messages.actions') }}</th>
+                        <th class="text-center">{{ __('messages.actions') }}</th>
                     </tr>
                     </thead>
                     @foreach($categories->chunk(50) as $row)
@@ -59,32 +59,12 @@
                                 <th scope="row">{{ $categories->firstItem() + $loop->index }}</th>
                                 <td class="text-wrap">{{ $category->title }}</td>
                                 <td>{{ $category->isPublic() }}</td>
-                                <td class="text-center">
-                                    <div class="dropdown">
-                                        <button class="btn btn-link text-dark px-0" type="button" data-bs-toggle="dropdown">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                 fill="currentColor" class="bi bi-three-dots-vertical"
-                                                 viewBox="0 0 16 16">
-                                                <path
-                                                    d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-                                            </svg>
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end"
-                                            aria-labelledby="dropdownMenuButton">
-                                            <li>
-                                                <a class="dropdown-item"
-                                                   href="{{ route('categories.edit', $category->id) }}">{{ __('messages.edit') }}</a>
-                                            </li>
-                                            <li>
-                                                <hr class="dropdown-divider">
-                                            </li>
-                                            <li>
-                                                {{ Form::model($category, ['route' => ['categories.destroy', $category->id], 'method' => 'delete', 'class' => 'form-delete', 'data-delete-id' => $category->id]) }}
-                                                <button type="submit"
-                                                        class="dropdown-item">{{ __('messages.delete') }}</button>
-                                                {{ Form::close() }}
-                                            </li>
-                                        </ul>
+                                <td>
+                                    <div class="d-flex justify-content-center align-items-center gap-2 flex-wrap grid-margin">
+                                        <a class="btn icon" href="{{ route('categories.edit', $category->id) }}"><i class="text-warning" data-feather="edit"></i></a>
+                                        {{ Form::model($category, ['route' => ['categories.destroy', $category->id], 'method' => 'delete', 'class' => 'form-delete', 'data-delete-id' => $category->id]) }}
+                                        <button type="submit" class="btn icon"><i class="text-danger" data-feather="delete"></i></button>
+                                        {{ Form::close() }}
                                     </div>
                                 </td>
                             </tr>

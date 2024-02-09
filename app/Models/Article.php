@@ -60,7 +60,11 @@ class Article extends Model implements TranslatableContract
     {
         return $query
             ->when($request->has('title') && $request->title !== null, fn($query) => $query->whereTranslationLike('title', '%'. $request->title .'%'))
-            ->when($request->has('is_public') && $request->is_public !== null, fn($query) => $query->where('is_public', $request->is_public));
+            ->when($request->has('category') && $request->category !== null, fn($query) => $query->withWhereHas('category', fn($q) => $q->where('id', $request->category)))
+            ->when($request->has('is_public') && $request->is_public !== null, fn($query) => $query->where('is_public', $request->is_public))
+            ->when($request->has('date_from') && $request->has('date_to') && $request->date_from !== null && $request->date_to !== null, fn($query) => $query->whereBetween('articles.created_at', [$request->date_from, $request->date_to]))
+            ->when($request->has('date_from') && $request->has('date_to') && $request->date_from !== null && $request->date_to === null, fn($query) => $query->whereDate('created_at', '>=', $request->date_from))
+            ->when($request->has('date_from') && $request->has('date_to') && $request->date_from === null && $request->date_to !== null, fn($query) => $query->whereDate('created_at', '<=', $request->date_to));
     }
 
     public function isPublic(): string
