@@ -74,9 +74,18 @@
             @endforeach
         </div>
 
+        <h5 class="my-3">{{ __('messages.text') }}</h5>
+        <div id="dynamicTextAddRemove">
+            @if(Route::is('articles.create') || (Route::is('articles.edit') && isset($article) && !$article->texts()->exists()))
+                @include('admin.articles.texts.create')
+            @else
+                @include('admin.articles.texts.edit')
+            @endif
+        </div>
+
         <h5 class="my-3">{{ __('messages.video') }}</h5>
         <div id="dynamicVideoAddRemove">
-            @if(Route::is('articles.create'))
+            @if(Route::is('articles.create') || (Route::is('articles.edit') && isset($article) && !$article->videos()->exists()))
                 @include('admin.articles.video.create')
             @else
                 @include('admin.articles.video.edit')
@@ -146,6 +155,7 @@
 </div>
 
 @push('scripts')
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         let i = Math.max.apply(null, $('[id^="row-video-"]').map(function() {
             return parseInt($(this).attr('id').replace(/\D+/g, '')) || 0;
@@ -178,6 +188,46 @@
             let id = $(this).attr('id');
             $('#row-video-' + id).remove();
         });
+    </script>
+
+    <script>
+        let j = Math.max.apply(null, $('[id^="row-text-"]').map(function() {
+            return parseInt($(this).attr('id').replace(/\D+/g, '')) || 0;
+        }));
+
+        $("#add-text-btn").click(function () {
+            ++j;
+            let row = `<div class="row" id="row-text-${j}">
+                @foreach($languages as $locale)
+                    <div class="col-md-9 mb-3">
+                        <label for="text_content_${j}_{{ $locale }}" class="form-label fw-bold">{{ __('messages.content') }} ({{ strtoupper($locale) }})</label>
+                        <textarea class="form-control tinymce-editor" id="text_content_0_{{ $locale }}" name="text[${j}][{{$locale}}][content]" required></textarea>
+                    </div>
+                @endforeach
+                        <div class="col-md-2 mb-3">
+                            <label for="text_sequence_number_${j}" class="form-label fw-bold">{{ __('messages.sequence_number') }}</label>
+                    <input type="number" class="form-control" name="text[${j}][sequence_number]" min="1" value="{{ old("text.") }}" id="text_sequence_number_${j}" required>
+                </div>
+                <div class="col-md-1 mb-3">
+                    <label class="form-label"></label>
+                    <div>
+                        <button type="button" name="add_text" id="add-text-btn" class="btn btn-success"><i data-feather="plus-square"></i></button>
+                    </div>
+                </div>
+            </div>`;
+
+            $("#dynamicTextAddRemove").append(row);
+            feather.replace()
+        });
+
+        $(document).on('click', '.remove-row-text', function () {
+            let id = $(this).attr('id');
+            $('#row-text-' + id).remove();
+        });
+
+        /*tinymce.init({
+            selector: '.tinymce-editor',
+        });*/
     </script>
 
     <script defer>

@@ -51,6 +51,11 @@ class Article extends Model implements TranslatableContract
         return $this->hasMany(Video::class);
     }
 
+    public function texts(): HasMany
+    {
+        return $this->hasMany(Text::class);
+    }
+
     public function scopeFilter($query, $request)
     {
         return $query

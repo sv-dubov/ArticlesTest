@@ -34,6 +34,8 @@ class ArticleSaveRequest extends FormRequest
             '%seo_description%' => 'nullable|min:2|max:255',
             'video.*.link' => 'nullable|max:255',
             'video.*.sequence_number' => 'integer|min:1',
+            'text.*.%content%' => 'nullable',
+            'text.*.sequence_number' => 'integer|min:1',
         ]);
     }
 
@@ -75,6 +77,9 @@ class ArticleSaveRequest extends FormRequest
             'video' => __('messages.video'),
             'video.*.link' => __('messages.link'),
             'video.*.sequence_number' => __('messages.sequence_number'),
+            'text' => __('messages.text'),
+            'text.*.%content%' => __('messages.content'),
+            'text.*.sequence_number' => __('messages.sequence_number'),
         ]);
     }
 }

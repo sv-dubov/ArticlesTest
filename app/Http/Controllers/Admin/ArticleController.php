@@ -8,6 +8,7 @@ use App\Models\Article;
 use App\Models\Category;
 use App\Services\ArticleImageService;
 use App\Services\SeoService;
+use App\Services\TextService;
 use App\Services\VideoService;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,7 @@ class ArticleController extends Controller
     public function __construct(
         public ArticleImageService $articleImageService,
         public SeoService $seoService,
+        public TextService $textService,
         public VideoService $videoService
     )
     {
@@ -42,6 +44,8 @@ class ArticleController extends Controller
 
         $this->seoService->saveSeo($article, $request);
 
+        $this->textService->saveText($dataArticle, $article);
+
         $this->videoService->saveVideo($dataArticle, $article);
 
         return redirect()->route('articles.index')->with('status', __('messages.successfully_added'));
@@ -65,6 +69,8 @@ class ArticleController extends Controller
         $this->articleImageService->uploadArticleImage($article, $request->validated()['image'] ?? []);
 
         $this->seoService->saveSeo($article, $request);
+
+        $this->textService->updateText($dataArticle, $article);
 
         $this->videoService->updateVideo($dataArticle, $article);
 
