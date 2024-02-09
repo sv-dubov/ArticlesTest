@@ -30,6 +30,8 @@ class ArticleSaveRequest extends FormRequest
             'image' => 'nullable|image|mimes:jpg,png',
             'publish_date' => 'nullable|date',
             'is_public' => 'boolean',
+            '%seo_title%' => 'nullable|min:2|max:255',
+            '%seo_description%' => 'nullable|min:2|max:255',
         ]);
     }
 
@@ -66,6 +68,8 @@ class ArticleSaveRequest extends FormRequest
             'image' => __('messages.image'),
             'publish_date' => __('messages.publish_date'),
             'is_public' => __('messages.is_public'),
+            '%seo_title%' => __('messages.seo_title'),
+            '%seo_description%' => __('messages.seo_description'),
         ]);
     }
 }

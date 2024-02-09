@@ -17,7 +17,7 @@ class ArticleImageService
 
     public function uploadArticleImage(Article $article, $image)
     {
-        if (is_null($image)) {
+        if ($image == null) {
             return;
         }
 
@@ -29,7 +29,7 @@ class ArticleImageService
 
     public function removeArticleImage($image)
     {
-        if (!is_null($image)) {
+        if ($image != null) {
             Storage::delete('public/uploads/articles/' . $image);
         }
     }

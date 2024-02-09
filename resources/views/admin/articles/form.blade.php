@@ -42,6 +42,38 @@
         </div>
 
         <div class="row">
+            @foreach($languages as $locale)
+                <div class="col-12 mb-3">
+                    <label for="seo_title_{{ $locale }}" class="form-label fw-bold">{{ __('messages.seo_title') }}
+                        ({{ strtoupper($locale) }})</label>
+                    {{ Form::text("{$locale}[seo_title]", old("{$locale}.seo_title", (isset($article) && $article->seo()->exists() && isset($article->seo->translate($locale)->title) ? $article->seo->translate($locale)->title : null)),
+                        ['class' => $errors->has("{$locale}.seo_title") ? 'form-control is-invalid' : 'form-control', 'id' => "seo_title_{$locale}", 'placeholder' => __('messages.seo_title')]) }}
+                    @if ($errors->has("{$locale}.seo_title"))
+                        <div class="invalid-feedback">
+                            {{ $errors->first("{$locale}.seo_title") }}
+                        </div>
+                    @endif
+                </div>
+            @endforeach
+        </div>
+
+        <div class="row">
+            @foreach($languages as $locale)
+                <div class="col-12 mb-3">
+                    <label for="seo_description_{{ $locale }}" class="form-label fw-bold">{{ __('messages.seo_description') }}
+                        ({{ strtoupper($locale) }})</label>
+                    {{ Form::text("{$locale}[seo_description]", old("{$locale}.seo_description", (isset($article) && $article->seo()->exists() && isset($article->seo->translate($locale)->description) ? $article->seo->translate($locale)->description : null)),
+                        ['class' => $errors->has("{$locale}.seo_description") ? 'form-control is-invalid' : 'form-control', 'id' => "seo_description_{$locale}", 'placeholder' => __('messages.seo_description')]) }}
+                    @if ($errors->has("{$locale}.seo_description"))
+                        <div class="invalid-feedback">
+                            {{ $errors->first("{$locale}.seo_description") }}
+                        </div>
+                    @endif
+                </div>
+            @endforeach
+        </div>
+
+        <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="slug" class="form-label fw-bold">{{ __('messages.slug') }}<span class="asterisk"> *</span></label>
                 {{ Form::text('slug', $article->slug ?? null,

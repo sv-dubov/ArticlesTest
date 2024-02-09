@@ -7,6 +7,7 @@ use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Storage;
 
 class Article extends Model implements TranslatableContract
@@ -39,6 +40,11 @@ class Article extends Model implements TranslatableContract
         return $this->belongsTo(Category::class);
     }
 
+    public function seo(): HasOne
+    {
+        return $this->hasOne(Seo::class);
+    }
+
     public function scopeFilter($query, $request)
     {
         return $query
@@ -55,7 +61,7 @@ class Article extends Model implements TranslatableContract
 
     public function getArticleImage()
     {
-        if (is_null($this->image)) {
+        if ($this->image == null) {
             return '/img/no-image.png';
         }
         return Storage::url('uploads/articles/' . $this->image);

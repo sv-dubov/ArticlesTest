@@ -7,6 +7,7 @@ use App\Http\Requests\ArticleSaveRequest;
 use App\Models\Article;
 use App\Models\Category;
 use App\Services\ArticleImageService;
+use App\Services\SeoService;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -24,10 +25,13 @@ class ArticleController extends Controller
         return view('admin.articles.create', compact('categories'));
     }
 
-    public function store(ArticleSaveRequest $request, ArticleImageService $articleImageService)
+    public function store(ArticleSaveRequest $request, ArticleImageService $articleImageService, SeoService $seoService)
     {
         $article = Article::create($request->except('image'));
         $articleImageService->uploadArticleImage($article, $request->validated()['image'] ?? []);
+
+        $seoService->saveSeo($article, $request);
+
         return redirect()->route('articles.index')->with('status', __('messages.successfully_added'));
     }
 
@@ -37,7 +41,7 @@ class ArticleController extends Controller
         return view('admin.articles.edit', compact('categories','article'));
     }
 
-    public function update(Article $article, ArticleSaveRequest $request, ArticleImageService $articleImageService)
+    public function update(Article $article, ArticleSaveRequest $request, ArticleImageService $articleImageService, SeoService $seoService)
     {
         if ($request->has('image')) {
             $articleImageService->removeArticleImage($article->image);
@@ -45,6 +49,9 @@ class ArticleController extends Controller
 
         $article->update($request->except('image'));
         $articleImageService->uploadArticleImage($article, $request->validated()['image'] ?? []);
+
+        $seoService->saveSeo($article, $request);
+
         return redirect()->route('articles.index')->with('status', __('messages.successfully_edited'));
     }
 
