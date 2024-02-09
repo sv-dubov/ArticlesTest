@@ -41,13 +41,14 @@
             @endforeach
         </div>
 
+        <h5 class="my-3">{{ __('messages.seo') }}</h5>
         <div class="row">
             @foreach($languages as $locale)
                 <div class="col-12 mb-3">
-                    <label for="seo_title_{{ $locale }}" class="form-label fw-bold">{{ __('messages.seo_title') }}
+                    <label for="seo_title_{{ $locale }}" class="form-label fw-bold">{{ __('messages.title') }}
                         ({{ strtoupper($locale) }})</label>
                     {{ Form::text("{$locale}[seo_title]", old("{$locale}.seo_title", (isset($article) && $article->seo()->exists() && isset($article->seo->translate($locale)->title) ? $article->seo->translate($locale)->title : null)),
-                        ['class' => $errors->has("{$locale}.seo_title") ? 'form-control is-invalid' : 'form-control', 'id' => "seo_title_{$locale}", 'placeholder' => __('messages.seo_title')]) }}
+                        ['class' => $errors->has("{$locale}.seo_title") ? 'form-control is-invalid' : 'form-control', 'id' => "seo_title_{$locale}", 'placeholder' => __('messages.title')]) }}
                     @if ($errors->has("{$locale}.seo_title"))
                         <div class="invalid-feedback">
                             {{ $errors->first("{$locale}.seo_title") }}
@@ -60,10 +61,10 @@
         <div class="row">
             @foreach($languages as $locale)
                 <div class="col-12 mb-3">
-                    <label for="seo_description_{{ $locale }}" class="form-label fw-bold">{{ __('messages.seo_description') }}
+                    <label for="seo_description_{{ $locale }}" class="form-label fw-bold">{{ __('messages.description') }}
                         ({{ strtoupper($locale) }})</label>
                     {{ Form::text("{$locale}[seo_description]", old("{$locale}.seo_description", (isset($article) && $article->seo()->exists() && isset($article->seo->translate($locale)->description) ? $article->seo->translate($locale)->description : null)),
-                        ['class' => $errors->has("{$locale}.seo_description") ? 'form-control is-invalid' : 'form-control', 'id' => "seo_description_{$locale}", 'placeholder' => __('messages.seo_description')]) }}
+                        ['class' => $errors->has("{$locale}.seo_description") ? 'form-control is-invalid' : 'form-control', 'id' => "seo_description_{$locale}", 'placeholder' => __('messages.description')]) }}
                     @if ($errors->has("{$locale}.seo_description"))
                         <div class="invalid-feedback">
                             {{ $errors->first("{$locale}.seo_description") }}
@@ -71,6 +72,15 @@
                     @endif
                 </div>
             @endforeach
+        </div>
+
+        <h5 class="my-3">{{ __('messages.video') }}</h5>
+        <div id="dynamicVideoAddRemove">
+            @if(Route::is('articles.create'))
+                @include('admin.articles.video.create')
+            @else
+                @include('admin.articles.video.edit')
+            @endif
         </div>
 
         <div class="row">
@@ -135,15 +145,51 @@
     </div>
 </div>
 
-<script defer>
-    function imagePreview(input, id) {
-        id = id || '#img_preview';
-        if (input.files && input.files[0]) {
-            let reader = new FileReader();
-            reader.onload = function (e) {
-                $(id).attr('src', e.target.result);
-            };
-            reader.readAsDataURL(input.files[0]);
+@push('scripts')
+    <script>
+        let i = Math.max.apply(null, $('[id^="row-video-"]').map(function() {
+            return parseInt($(this).attr('id').replace(/\D+/g, '')) || 0;
+        }));
+
+        $("#add-video-btn").click(function () {
+            ++i;
+            let row = `<div class="row" id="row-video-${i}">
+                <div class="col-md-6 mb-3">
+                    <label for="video_link_${i}" class="form-label fw-bold">{{ __('messages.link') }}</label>
+                    <input type="text" class="form-control" name="video[${i}][link]" value="{{ old("video.") }}" id="video_link_${i}" required>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="video_sequence_number_${i}" class="form-label fw-bold">{{ __('messages.sequence_number') }}</label>
+                    <input type="number" class="form-control" name="video[${i}][sequence_number]" min="1" value="{{ old("video.") }}" id="video_sequence_number_${i}" required>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label class="form-label"></label>
+                    <div>
+                        <button type="button" name="remove_video" id="${i}" class="btn btn-secondary btn-type remove-row-video"><i data-feather="minus-square"></i></button>
+                    </div>
+                </div>
+            </div>`;
+
+            $("#dynamicVideoAddRemove").append(row);
+            feather.replace()
+        });
+
+        $(document).on('click', '.remove-row-video', function () {
+            let id = $(this).attr('id');
+            $('#row-video-' + id).remove();
+        });
+    </script>
+
+    <script defer>
+        function imagePreview(input, id) {
+            id = id || '#img_preview';
+            if (input.files && input.files[0]) {
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    $(id).attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
         }
-    }
-</script>
+    </script>
+@endpush

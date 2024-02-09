@@ -8,10 +8,19 @@ use App\Models\Article;
 use App\Models\Category;
 use App\Services\ArticleImageService;
 use App\Services\SeoService;
+use App\Services\VideoService;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
+    public function __construct(
+        public ArticleImageService $articleImageService,
+        public SeoService $seoService,
+        public VideoService $videoService
+    )
+    {
+    }
+
     public function index(Request $request)
     {
         $categories = Category::listsTranslations('title')->pluck('title', 'id');
@@ -25,12 +34,15 @@ class ArticleController extends Controller
         return view('admin.articles.create', compact('categories'));
     }
 
-    public function store(ArticleSaveRequest $request, ArticleImageService $articleImageService, SeoService $seoService)
+    public function store(ArticleSaveRequest $request)
     {
-        $article = Article::create($request->except('image'));
-        $articleImageService->uploadArticleImage($article, $request->validated()['image'] ?? []);
+        $dataArticle = $request->except('image');
+        $article = Article::create($dataArticle);
+        $this->articleImageService->uploadArticleImage($article, $request->validated()['image'] ?? []);
 
-        $seoService->saveSeo($article, $request);
+        $this->seoService->saveSeo($article, $request);
+
+        $this->videoService->saveVideo($dataArticle, $article);
 
         return redirect()->route('articles.index')->with('status', __('messages.successfully_added'));
     }
@@ -41,23 +53,27 @@ class ArticleController extends Controller
         return view('admin.articles.edit', compact('categories','article'));
     }
 
-    public function update(Article $article, ArticleSaveRequest $request, ArticleImageService $articleImageService, SeoService $seoService)
+    public function update(Article $article, ArticleSaveRequest $request)
     {
+        $dataArticle = $request->except('image');
+
         if ($request->has('image')) {
-            $articleImageService->removeArticleImage($article->image);
+            $this->articleImageService->removeArticleImage($article->image);
         }
 
         $article->update($request->except('image'));
-        $articleImageService->uploadArticleImage($article, $request->validated()['image'] ?? []);
+        $this->articleImageService->uploadArticleImage($article, $request->validated()['image'] ?? []);
 
-        $seoService->saveSeo($article, $request);
+        $this->seoService->saveSeo($article, $request);
+
+        $this->videoService->updateVideo($dataArticle, $article);
 
         return redirect()->route('articles.index')->with('status', __('messages.successfully_edited'));
     }
 
-    public function destroy(Article $article, ArticleImageService $articleImageService)
+    public function destroy(Article $article)
     {
-        $articleImageService->removeArticleImage($article->image);
+        $this->articleImageService->removeArticleImage($article->image);
         $article->delete();
         return redirect()->route('articles.index')->with('status', __('messages.successfully_deleted'));
     }

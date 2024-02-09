@@ -60,6 +60,7 @@ return [
     'delete_category_confirm' => 'Ви впевнені, що хочете видалити категорію?',
     'article' => 'Стаття',
     'articles' => 'Статті',
+    'seo' => 'SEO',
     'delete_article' => 'Видалити статтю',
     'delete_article_confirm' => 'Ви впевнені, що хочете видалити статтю?',
 ];
