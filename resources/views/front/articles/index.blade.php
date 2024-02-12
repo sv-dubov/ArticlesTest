@@ -38,10 +38,10 @@
                                 </div>
                                 <div class="blog-cart__img">
                                     <picture>
-                                        <source srcset="{{ asset('front/img/delete/project-img.webp') }}" type="image/webp">
-                                        <source srcset="{{ asset('front/img/delete/project-img.jpg') }}" type="image/jpeg">
+                                        <source srcset="{{ $article->getArticleMainImage(636, 'webp') }}" type="image/webp">
+                                        <source srcset="{{ $article->getArticleMainImage(636, 'jpeg') }}" type="image/jpeg">
 
-                                        <img src="{{ asset('front/img/delete/project-img.jpg') }}" loading="lazy" alt="">
+                                        <img src="{{ $article->getArticleMainImage(636, 'jpeg') }}" loading="lazy" alt="">
                                     </picture>
                                 </div>
                                 <p class="link-text">

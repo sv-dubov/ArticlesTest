@@ -137,7 +137,7 @@
                 {{ Form::file('image', ['class' => $errors->has('image') ? 'form-control is-invalid' : 'form-control', 'onchange' => "imagePreview(this);"]) }}
                 <div class="my-3">
                     @if(isset($article))
-                        <img src="{{ $article->getArticleImage() }}" id="img_preview" width="350">
+                        <img src="{{ $article->getArticleMainImage(null, 'jpeg') }}" id="img_preview" width="350">
                     @else
                         <img src="{{ asset('img/no-image.png') }}" id="img_preview" width="350">
                     @endif
@@ -166,11 +166,11 @@
             let row = `<div class="row" id="row-video-${i}">
                 <div class="col-md-6 mb-3">
                     <label for="video_link_${i}" class="form-label fw-bold">{{ __('messages.link') }}</label>
-                    <input type="text" class="form-control" name="video[${i}][link]" value="{{ old("video.") }}" id="video_link_${i}" required>
+                    <input type="text" class="form-control" name="video[${i}][link]" value="{{ old("video.") }}" id="video_link_${i}">
                 </div>
                 <div class="col-md-2 mb-3">
                     <label for="video_sequence_number_${i}" class="form-label fw-bold">{{ __('messages.sequence_number') }}</label>
-                    <input type="number" class="form-control" name="video[${i}][sequence_number]" min="1" value="{{ old("video.") }}" id="video_sequence_number_${i}" required>
+                    <input type="number" class="form-control" name="video[${i}][sequence_number]" min="1" value="{{ old("video.") }}" id="video_sequence_number_${i}">
                 </div>
                 <div class="col-md-2 mb-3">
                     <label class="form-label"></label>
@@ -201,12 +201,12 @@
                 @foreach($languages as $locale)
                     <div class="col-md-9 mb-3">
                         <label for="text_content_${j}_{{ $locale }}" class="form-label fw-bold">{{ __('messages.content') }} ({{ strtoupper($locale) }})</label>
-                        <textarea class="form-control tinymce-editor" id="text_content_0_{{ $locale }}" name="text[${j}][{{$locale}}][content]" required></textarea>
+                        <textarea class="form-control tinymce-editor" id="text_content_0_{{ $locale }}" name="text[${j}][{{$locale}}][content]"></textarea>
                     </div>
                 @endforeach
                         <div class="col-md-2 mb-3">
                             <label for="text_sequence_number_${j}" class="form-label fw-bold">{{ __('messages.sequence_number') }}</label>
-                    <input type="number" class="form-control" name="text[${j}][sequence_number]" min="1" value="{{ old("text.") }}" id="text_sequence_number_${j}" required>
+                    <input type="number" class="form-control" name="text[${j}][sequence_number]" min="1" value="{{ old("text.") }}" id="text_sequence_number_${j}">
                 </div>
                 <div class="col-md-1 mb-3">
                     <label class="form-label"></label>

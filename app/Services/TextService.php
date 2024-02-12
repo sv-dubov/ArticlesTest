@@ -8,15 +8,25 @@ class TextService
 {
     public function saveText($dataArticle, $article)
     {
-        foreach ($dataArticle['text'] as $value) {
-            $value['article_id'] = $article->id;
-            Text::create($value);
+        $hasContent = collect($dataArticle['text'])->some(function ($item) {
+            return collect($item)->has('content') && $item['content'] !== null;
+        });
+
+        if ($hasContent) {
+            foreach ($dataArticle['text'] as $value) {
+                $value['article_id'] = $article->id;
+                Text::create($value);
+            }
         }
     }
 
     public function updateText($dataArticle, $article)
     {
         $dataText = $dataArticle['text'];
+
+        $hasContent = collect($dataText)->some(function ($item) {
+            return collect($item)->has('content') && $item['content'] !== null;
+        });
 
         $article->texts->each(function ($text, $key) use (&$dataText) {
             if (isset($dataText[$key])) {
@@ -38,9 +48,11 @@ class TextService
             }
         });
 
-        foreach ($dataText as $key => $value) {
-            $value['article_id'] = $article->id;
-            Text::create($value);
+        if ($hasContent) {
+            foreach ($dataText as $value) {
+                $value['article_id'] = $article->id;
+                Text::create($value);
+            }
         }
     }
 }

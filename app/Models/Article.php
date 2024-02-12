@@ -74,11 +74,16 @@ class Article extends Model implements TranslatableContract
             : __('messages.not_published');
     }
 
-    public function getArticleImage()
+    public function getArticleMainImage($width, $extension)
     {
         if ($this->image == null) {
             return '/img/no-image.png';
         }
-        return Storage::url('uploads/articles/' . $this->image);
+
+        if ($width == null) {
+            return Storage::url('uploads/articles/' . $this->image . '.' . $extension);
+        }
+
+        return Storage::url('uploads/articles/' . $this->image . '_' . $width . '.' . $extension);
     }
 }

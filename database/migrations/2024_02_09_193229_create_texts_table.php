@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('texts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('article_id')->constrained()->cascadeOnDelete();
-            $table->unsignedInteger('sequence_number')->default(1);
+            $table->unsignedInteger('sequence_number')->nullable()->default(1);
             $table->timestamps();
         });
     }

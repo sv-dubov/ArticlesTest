@@ -20,15 +20,15 @@
                     </div>
                     <h1 class="h1 main-title">{{ $article->title }}</h1>
                     <div class="blog-photo">
-                        {{--<div class="blog-photo__title">
-                            <a href="" class="_link">Якась Крута Велика Фортеця</a>
-                        </div>--}}
+                        <div class="blog-photo__title">
+                            <a href="" class="_link">Якась Крута Велика Фотка</a>
+                        </div>
                         <div class="blog-photo__img">
                             <picture>
-                                <source srcset="./img/delete/project-img.webp" type="image/webp">
-                                <source srcset="./img/delete/project-img.jpg" type="image/jpeg">
+                                <source srcset="{{ $article->getArticleMainImage(1280, 'webp') }}" type="image/webp">
+                                <source srcset="{{ $article->getArticleMainImage(1280, 'jpeg') }}" type="image/jpeg">
 
-                                <img src="./img/delete/project-img.jpg" loading="lazy" alt="">
+                                <img src="{{ $article->getArticleMainImage(1280, 'jpeg') }}" loading="lazy" alt="">
                             </picture>
                         </div>
                     </div>

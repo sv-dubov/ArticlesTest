@@ -3,11 +3,11 @@
         <input type="hidden" name="video[{{$key}}][video_id]" value='{{$video["video_id"] ?? $video->id ?? null}}'>
         <div class="col-md-6 mb-3">
             <label for="video_link_{{$key}}" class="form-label fw-bold">{{ __('messages.link') }}</label>
-            <input type="text" class="form-control" name="video[{{$key}}][link]" value="{{ $video->link }}" id="video_link_{{$key}}" required>
+            <input type="text" class="form-control" name="video[{{$key}}][link]" value="{{ $video->link }}" id="video_link_{{$key}}">
         </div>
         <div class="col-md-2 mb-3">
             <label for="video_sequence_number_{{$key}}" class="form-label fw-bold">{{ __('messages.sequence_number') }}</label>
-            <input type="number" class="form-control" name="video[{{$key}}][sequence_number]" min="1" value="{{ $video->sequence_number }}" id="video_sequence_number_{{$key}}" required>
+            <input type="number" class="form-control" name="video[{{$key}}][sequence_number]" min="1" value="{{ $video->sequence_number }}" id="video_sequence_number_{{$key}}">
         </div>
         <div class="col-md-2 mb-3">
             <label class="form-label"></label>

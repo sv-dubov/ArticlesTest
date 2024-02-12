@@ -27,7 +27,7 @@ class ArticleSaveRequest extends FormRequest
             '%title%' => 'nullable|min:2|max:255',
             '%subtitle%' => 'nullable|min:2|max:255',
             'slug' => 'required|min:2|max:255',
-            'image' => 'nullable|image|mimes:jpg,png',
+            'image' => 'required|image|mimes:jpg,png',
             'publish_date' => 'nullable|date',
             'is_public' => 'boolean',
             '%seo_title%' => 'nullable|min:2|max:255',

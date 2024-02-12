@@ -6,14 +6,14 @@
                 <label for="text_content_{{$key}}_{{ $locale }}" class="form-label fw-bold">
                     {{ __('messages.content') }} ({{ strtoupper($locale) }})
                 </label>
-                <textarea class="form-control tinymce-editor" id="text_content_{{$key}}_{{ $locale }}" name="text[{{$key}}][{{$locale}}][content]" required>
+                <textarea class="form-control tinymce-editor" id="text_content_{{$key}}_{{ $locale }}" name="text[{{$key}}][{{$locale}}][content]">
                     {{ $text->translate($locale)->content ?? null }}
                 </textarea>
             </div>
         @endforeach
         <div class="col-md-2 mb-3">
             <label for="text_sequence_number_{{$key}}" class="form-label fw-bold">{{ __('messages.sequence_number') }}</label>
-            <input type="number" class="form-control" name="text[{{$key}}][sequence_number]" min="1" value="{{ $text->sequence_number }}" id="text_sequence_number_{{$key}}" required>
+            <input type="number" class="form-control" name="text[{{$key}}][sequence_number]" min="1" value="{{ $text->sequence_number }}" id="text_sequence_number_{{$key}}">
         </div>
         <div class="col-md-1 mb-3">
             <label class="form-label"></label>

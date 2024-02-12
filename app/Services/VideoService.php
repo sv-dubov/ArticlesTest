@@ -8,9 +8,13 @@ class VideoService
 {
     public function saveVideo($dataArticle, $article)
     {
-        foreach ($dataArticle['video'] as $value) {
-            $value['article_id'] = $article->id;
-            Video::create($value);
+        $dataVideo = $dataArticle['video'];
+
+        if (isset($dataVideo) && isset($dataVideo['link'])) {
+            foreach ($dataVideo as $value) {
+                $value['article_id'] = $article->id;
+                Video::create($value);
+            }
         }
     }
 
@@ -19,7 +23,7 @@ class VideoService
         $dataVideo = $dataArticle['video'];
 
         $article->videos->each(function ($video, $key) use (&$dataVideo) {
-            if (isset($dataVideo[$key])) {
+            if (isset($dataVideo[$key]) && isset($dataVideo[$key]['link'])) {
                 $video->update([
                     'link' => $dataVideo[$key]['link'],
                     'sequence_number' => $dataVideo[$key]['sequence_number'],
@@ -30,9 +34,11 @@ class VideoService
             }
         });
 
-        foreach ($dataVideo as $key => $value) {
-            $value['article_id'] = $article->id;
-            Video::create($value);
+        if (isset($dataVideo) && isset($dataVideo['link'])) {
+            foreach ($dataVideo as $key => $value) {
+                $value['article_id'] = $article->id;
+                Video::create($value);
+            }
         }
     }
 }
