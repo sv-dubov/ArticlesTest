@@ -24,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer([
             'layouts.partials.lang-switcher',
+            'front.partials._header',
             'admin.*',
         ], function ($view) {
             $view->with('languages', config('translatable.locales'));

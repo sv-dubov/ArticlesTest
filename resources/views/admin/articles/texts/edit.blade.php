@@ -12,8 +12,8 @@
             </div>
         @endforeach
         <div class="col-md-2 mb-3">
-            <label for="text_sequence_number_0" class="form-label fw-bold">{{ __('messages.sequence_number') }}</label>
-            <input type="number" class="form-control" name="text[0][sequence_number]" min="1" value="{{ old("text.0.sequence_number") }}" id="text_sequence_number_0" required>
+            <label for="text_sequence_number_{{$key}}" class="form-label fw-bold">{{ __('messages.sequence_number') }}</label>
+            <input type="number" class="form-control" name="text[{{$key}}][sequence_number]" min="1" value="{{ $text->sequence_number }}" id="text_sequence_number_{{$key}}" required>
         </div>
         <div class="col-md-1 mb-3">
             <label class="form-label"></label>

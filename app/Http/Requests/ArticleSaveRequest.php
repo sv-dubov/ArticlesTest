@@ -33,9 +33,9 @@ class ArticleSaveRequest extends FormRequest
             '%seo_title%' => 'nullable|min:2|max:255',
             '%seo_description%' => 'nullable|min:2|max:255',
             'video.*.link' => 'nullable|max:255',
-            'video.*.sequence_number' => 'integer|min:1',
+            'video.*.sequence_number' => 'nullable|integer|min:1',
             'text.*.%content%' => 'nullable',
-            'text.*.sequence_number' => 'integer|min:1',
+            'text.*.sequence_number' => 'nullable|integer|min:1',
         ]);
     }
 

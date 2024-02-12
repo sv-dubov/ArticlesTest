@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Front\ArticleController as FrontArticleController;
 use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,9 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('login', [LoginController::class, 'login']);
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
+    Route::get('/articles', [FrontArticleController::class, 'index'])->name('front.articles.index');
+    Route::get('/articles/{article}', [FrontArticleController::class, 'show'])->name('front.articles.show');
 
     Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
