@@ -30,10 +30,10 @@
                     <div class="tab-item active">
                         <div class="blog-cards">
                             @foreach($articles as $article)
-                            <a href="{{ route('front.articles.show', $article) }}" class="link-block blog-cart">
+                            <a href="{{ route('front.articles.show', $article->slug) }}" class="link-block blog-cart">
                                 <span class="icon-link _red"></span>
                                 <div class="blog-cart__top">
-                                    <p class="blog-cart__type">Новина</p>
+                                    <p class="blog-cart__type">{{ $article->category->title }}</p>
                                     <p class="blog-cart__date">{{ $article->publish_date->format('d/m/Y') }}</p>
                                 </div>
                                 <div class="blog-cart__img">

@@ -73,7 +73,9 @@
                             <tr>
                                 <th>{{ $article->id }}</th>
                                 <td class="text-wrap">{{ $article->title }}</td>
-                                <td class="text-wrap">{{ $article->slug }}</td>
+                                <td class="text-wrap">
+                                    <a href="{{ route('front.articles.show', $article->slug) }}" target="_blank">{{ __('messages.link') }}</a>
+                                </td>
                                 <td>{{ $article->isPublic() }}</td>
                                 <td>{{ $article->created_at->format('d.m.Y H:i') }}</td>
                                 <td>{{ $article->updated_at->format('d.m.Y H:i') }}</td>

@@ -1,7 +1,7 @@
 @extends('layouts.front')
 
-@section('seo-title', $article->seo->exists() ? $article->seo->title : $article->title)
-@section('seo-description', $article->seo->exists() ? $article->seo->description : null)
+@section('seo-title', $article->seo()->exists() ? $article->seo->title : $article->title)
+@section('seo-description', $article->seo()->exists() ? $article->seo->description : null)
 
 @section('content')
     <div class="single-page single-blog">
@@ -9,13 +9,13 @@
             <ul class="breadcrumb">
                 <li><a href="">Головна</a></li>
                 <li><a href="{{ route('front.articles.index') }}">Новини та події</a></li>
-                <li><span>Новина</span></li>
+                <li><span>{{ $article->category->title }}</span></li>
             </ul>
 
             <div class="single-page-content have-sidebar">
                 <article class="single-main">
                     <div class="blog-info">
-                        <div class="blog-type">Новина</div>
+                        <div class="blog-type">{{ $article->category->title }}</div>
                         <div class="blog-date">Дата публікації: {{ $article->publish_date->format('d/m/Y') }}</div>
                     </div>
                     <h1 class="h1 main-title">{{ $article->title }}</h1>

@@ -155,7 +155,7 @@
 </div>
 
 @push('scripts')
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/wpv8f7rmo8ah6u3kz6bxg13swwnpyf6le33c97epozcw2y79/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         let i = Math.max.apply(null, $('[id^="row-video-"]').map(function() {
             return parseInt($(this).attr('id').replace(/\D+/g, '')) || 0;
@@ -225,9 +225,9 @@
             $('#row-text-' + id).remove();
         });
 
-        /*tinymce.init({
+        tinymce.init({
             selector: '.tinymce-editor',
-        });*/
+        });
     </script>
 
     <script defer>

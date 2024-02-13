@@ -32,7 +32,7 @@ Route::group(['middleware' => 'language'], function () {
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::get('/articles', [FrontArticleController::class, 'index'])->name('front.articles.index');
-    Route::get('/articles/{article}', [FrontArticleController::class, 'show'])->name('front.articles.show');
+    Route::get('/articles/{article:slug}', [FrontArticleController::class, 'show'])->name('front.articles.show');
 
     Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
