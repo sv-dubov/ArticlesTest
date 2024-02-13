@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('front.articles.index');
 });
 
 Route::get('/change-language/{lang_code}', [LanguageController::class, 'changeLanguage'])->name('change_lang');
