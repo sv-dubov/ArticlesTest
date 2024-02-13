@@ -34,6 +34,7 @@ return [
     'upload_file' => 'Завантажити файл',
     'upload_files' => 'Завантажити файли',
     'gallery' => 'Галерея',
+    'galleries' => 'Галереї',
     'yes' => 'Так',
     'no' => 'Ні',
     'sequence_number' => 'Порядковий номер',
@@ -67,6 +68,9 @@ return [
     'articles' => 'Статті',
     'text' => 'Текст',
     'seo' => 'SEO',
+    'choose_article' => 'Виберіть статтю',
     'delete_article' => 'Видалити статтю',
     'delete_article_confirm' => 'Ви впевнені, що хочете видалити статтю?',
+    'delete_gallery' => 'Видалити галерею',
+    'delete_gallery_confirm' => 'Ви впевнені, що хочете видалити галерею?',
 ];

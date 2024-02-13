@@ -33,6 +33,12 @@
                     <p class="link-title">{{ __('messages.articles') }}</p>
                 </a>
             </li>
+            <li class="nav-item {{ request()->segment(2) === 'galleries' ? 'active' : '' }}">
+                <a href="{{ route('galleries.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="image"></i>
+                    <p class="link-title">{{ __('messages.galleries') }}</p>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

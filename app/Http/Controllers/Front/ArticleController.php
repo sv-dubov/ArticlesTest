@@ -18,6 +18,7 @@ class ArticleController extends Controller
     {
         $texts = $article->texts()->get();
         $videos = $article->videos()->get();
-        return view('front.articles.show', compact('article', 'texts', 'videos'));
+        $galleries = $article->galleries()->get();
+        return view('front.articles.show', compact('article', 'texts', 'videos', 'galleries'));
     }
 }

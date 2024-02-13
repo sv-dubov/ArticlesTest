@@ -21,7 +21,7 @@
                     <h1 class="h1 main-title">{{ $article->title }}</h1>
                     <div class="blog-photo">
                         <div class="blog-photo__title">
-                            <a href="" class="_link">Якась Крута Велика Фотка</a>
+                            <a href="" class="_link">{{ $article->subtitle }}</a>
                         </div>
                         <div class="blog-photo__img">
                             <picture>
@@ -34,52 +34,11 @@
                     </div>
 
                     <div class="editor">
-                        <h2>
-                            {{ $article->subtitle }}
-                        </h2>
-
                         @if($texts->count() > 0)
                             @foreach($texts as $text)
                                 {!! $text->content !!}
                             @endforeach
                         @endif
-
-                        {{--<ul>
-                            <li>
-                                <p>Історія фонду</p>
-                            </li>
-                            <li>
-                                <p>Місія та цілі</p>
-                            </li>
-                            <li>
-                                <p>Дані Національного судового реєстру, Статут, звіти</p>
-                            </li>
-                            <li>
-                                <p>Інструкції використання веб-сайту BIP</p>
-                            </li>
-                            <li>
-                                <p>Майно фонду</p>
-                            </li>
-                            <li>
-                                <p>Як ми допомогаємо 1,2,3,4</p>
-                            </li>
-                            <li>
-                                <p>Пожертвувати 1,5% від вашого податку</p>
-                            </li>
-                            <li>
-                                <p>Онлайн внесок через Hotpay.pl</p>
-                            </li>
-                            <li>
-                                <p>Соціально відповідальний бізнес</p>
-                            </li>
-                            <li>
-                                <p>Інші форми підтримки</p>
-                            </li>
-                        </ul>--}}
-
-                        {{--<a href="" class="download-link">Какой-то файл с каким-то названием (pdf)</a>
-                        <a href="" class="download-link">Еще один файл (pdf)</a>
-                        <a href="" class="download-link">И еще один (pdf)</a>--}}
 
                         @if($videos->count() > 0)
                             @foreach($videos as $video)
@@ -91,219 +50,36 @@
                             @endforeach
                         @endif
 
-                        <div class="gallery-swiper__wrapper">
-                            <div class="gallery-swiper__top">
-                                <p class="gallery-swiper__title">Lorem ipsum dolor sit amet consectetur. </p>
+                        @if($galleries->count() > 0)
+                            @foreach($galleries as $gallery)
+                                <div class="gallery-swiper__wrapper">
+                                    <div class="gallery-swiper__top">
+                                        <p class="gallery-swiper__title">Lorem ipsum dolor sit amet consectetur. </p>
 
-                                <div class="swiper-arrows">
-                                    <div class="swiper-arrow swiper-button-prev _color-blue btn-prev-gallery"></div>
-                                    <div class="swiper-arrow swiper-button-next _color-blue btn-next-gallery"></div>
-                                </div>
-                            </div>
-                            <div class="swiper gallery-swiper">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide _js-btn-show-modal" data-modal="gallery">
-                                        <picture>
-                                            <source srcset="./img/delete/gallery-img-1.webp" type="image/webp">
-                                            <source srcset="./img/delete/gallery-img-1.jpg" type="image/jpeg">
-
-                                            <img src="./img/delete/gallery-img-1.jpg" loading="lazy" alt="">
-                                        </picture>
+                                        <div class="swiper-arrows">
+                                            <div class="swiper-arrow swiper-button-prev _color-blue btn-prev-gallery"></div>
+                                            <div class="swiper-arrow swiper-button-next _color-blue btn-next-gallery"></div>
+                                        </div>
                                     </div>
-                                    <div class="swiper-slide _js-btn-show-modal" data-modal="gallery">
-                                        <picture>
-                                            <source srcset="./img/delete/gallery-img-2.webp" type="image/webp">
-                                            <source srcset="./img/delete/gallery-img-2.jpg" type="image/jpeg">
+                                    <div class="swiper gallery-swiper">
+                                        <div class="swiper-wrapper">
+                                            @foreach($gallery->images as $image)
+                                                <div class="swiper-slide _js-btn-show-modal" data-modal="gallery">
+                                                    <picture>
+                                                        <source srcset="{{ $gallery->getGalleryImage($image, 'webp', 218) }}" type="image/webp">
+                                                        <source srcset="{{ $gallery->getGalleryImage($image, 'jpg', 218) }}" type="image/jpeg">
 
-                                            <img src="./img/delete/gallery-img-2.jpg" loading="lazy" alt="">
-                                        </picture>
-                                    </div>
-                                    <div class="swiper-slide _js-btn-show-modal" data-modal="gallery">
-                                        <picture>
-                                            <source srcset="./img/delete/gallery-img-3.webp" type="image/webp">
-                                            <source srcset="./img/delete/gallery-img-3.jpg" type="image/jpeg">
+                                                        <img src="{{ $gallery->getGalleryImage($image, 'jpg', 218) }}" loading="lazy" alt="">
+                                                    </picture>
+                                                </div>
+                                            @endforeach
+                                        </div>
 
-                                            <img src="./img/delete/gallery-img-3.jpg" loading="lazy" alt="">
-                                        </picture>
-                                    </div>
-                                    <div class="swiper-slide _js-btn-show-modal" data-modal="gallery">
-                                        <picture>
-                                            <source srcset="./img/delete/gallery-img-4.webp" type="image/webp">
-                                            <source srcset="./img/delete/gallery-img-4.jpg" type="image/jpeg">
-
-                                            <img src="./img/delete/gallery-img-4.jpg" loading="lazy" alt="">
-                                        </picture>
-                                    </div>
-
-                                    <div class="swiper-slide _js-btn-show-modal" data-modal="gallery">
-                                        <picture>
-                                            <source srcset="./img/delete/gallery-img-4.webp" type="image/webp">
-                                            <source srcset="./img/delete/gallery-img-4.jpg" type="image/jpeg">
-
-                                            <img src="./img/delete/gallery-img-4.jpg" loading="lazy" alt="">
-                                        </picture>
-                                    </div>
-                                    <div class="swiper-slide _js-btn-show-modal" data-modal="gallery">
-                                        <picture>
-                                            <source srcset="./img/delete/gallery-img-3.webp" type="image/webp">
-                                            <source srcset="./img/delete/gallery-img-3.jpg" type="image/jpeg">
-
-                                            <img src="./img/delete/gallery-img-3.jpg" loading="lazy" alt="">
-                                        </picture>
-                                    </div>
-                                    <div class="swiper-slide _js-btn-show-modal" data-modal="gallery">
-                                        <picture>
-                                            <source srcset="./img/delete/gallery-img-2.webp" type="image/webp">
-                                            <source srcset="./img/delete/gallery-img-2.jpg" type="image/jpeg">
-
-                                            <img src="./img/delete/gallery-img-2.jpg" loading="lazy" alt="">
-                                        </picture>
-                                    </div>
-                                    <div class="swiper-slide _js-btn-show-modal" data-modal="gallery">
-                                        <picture>
-                                            <source srcset="./img/delete/gallery-img-1.webp" type="image/webp">
-                                            <source srcset="./img/delete/gallery-img-1.jpg" type="image/jpeg">
-
-                                            <img src="./img/delete/gallery-img-1.jpg" loading="lazy" alt="">
-                                        </picture>
-                                    </div>
-
-                                    <div class="swiper-slide _js-btn-show-modal" data-modal="gallery">
-                                        <picture>
-                                            <source srcset="./img/delete/gallery-img-1.webp" type="image/webp">
-                                            <source srcset="./img/delete/gallery-img-1.jpg" type="image/jpeg">
-
-                                            <img src="./img/delete/gallery-img-1.jpg" loading="lazy" alt="">
-                                        </picture>
-                                    </div>
-                                    <div class="swiper-slide _js-btn-show-modal" data-modal="gallery">
-                                        <picture>
-                                            <source srcset="./img/delete/gallery-img-2.webp" type="image/webp">
-                                            <source srcset="./img/delete/gallery-img-2.jpg" type="image/jpeg">
-
-                                            <img src="./img/delete/gallery-img-2.jpg" loading="lazy" alt="">
-                                        </picture>
-                                    </div>
-                                    <div class="swiper-slide _js-btn-show-modal" data-modal="gallery">
-                                        <picture>
-                                            <source srcset="./img/delete/gallery-img-3.webp" type="image/webp">
-                                            <source srcset="./img/delete/gallery-img-3.jpg" type="image/jpeg">
-
-                                            <img src="./img/delete/gallery-img-3.jpg" loading="lazy" alt="">
-                                        </picture>
-                                    </div>
-                                    <div class="swiper-slide _js-btn-show-modal" data-modal="gallery">
-                                        <picture>
-                                            <source srcset="./img/delete/gallery-img-4.webp" type="image/webp">
-                                            <source srcset="./img/delete/gallery-img-4.jpg" type="image/jpeg">
-
-                                            <img src="./img/delete/gallery-img-4.jpg" loading="lazy" alt="">
-                                        </picture>
-                                    </div>
-
-                                    <div class="swiper-slide _js-btn-show-modal" data-modal="gallery">
-                                        <picture>
-                                            <source srcset="./img/delete/gallery-img-4.webp" type="image/webp">
-                                            <source srcset="./img/delete/gallery-img-4.jpg" type="image/jpeg">
-
-                                            <img src="./img/delete/gallery-img-4.jpg" loading="lazy" alt="">
-                                        </picture>
-                                    </div>
-                                    <div class="swiper-slide _js-btn-show-modal" data-modal="gallery">
-                                        <picture>
-                                            <source srcset="./img/delete/gallery-img-3.webp" type="image/webp">
-                                            <source srcset="./img/delete/gallery-img-3.jpg" type="image/jpeg">
-
-                                            <img src="./img/delete/gallery-img-3.jpg" loading="lazy" alt="">
-                                        </picture>
-                                    </div>
-                                    <div class="swiper-slide _js-btn-show-modal" data-modal="gallery">
-                                        <picture>
-                                            <source srcset="./img/delete/gallery-img-2.webp" type="image/webp">
-                                            <source srcset="./img/delete/gallery-img-2.jpg" type="image/jpeg">
-
-                                            <img src="./img/delete/gallery-img-2.jpg" loading="lazy" alt="">
-                                        </picture>
-                                    </div>
-                                    <div class="swiper-slide _js-btn-show-modal" data-modal="gallery">
-                                        <picture>
-                                            <source srcset="./img/delete/gallery-img-1.webp" type="image/webp">
-                                            <source srcset="./img/delete/gallery-img-1.jpg" type="image/jpeg">
-
-                                            <img src="./img/delete/gallery-img-1.jpg" loading="lazy" alt="">
-                                        </picture>
-                                    </div>
-
-                                    <div class="swiper-slide _js-btn-show-modal" data-modal="gallery">
-                                        <picture>
-                                            <source srcset="./img/delete/gallery-img-1.webp" type="image/webp">
-                                            <source srcset="./img/delete/gallery-img-1.jpg" type="image/jpeg">
-
-                                            <img src="./img/delete/gallery-img-1.jpg" loading="lazy" alt="">
-                                        </picture>
-                                    </div>
-                                    <div class="swiper-slide _js-btn-show-modal" data-modal="gallery">
-                                        <picture>
-                                            <source srcset="./img/delete/gallery-img-2.webp" type="image/webp">
-                                            <source srcset="./img/delete/gallery-img-2.jpg" type="image/jpeg">
-
-                                            <img src="./img/delete/gallery-img-2.jpg" loading="lazy" alt="">
-                                        </picture>
-                                    </div>
-                                    <div class="swiper-slide _js-btn-show-modal" data-modal="gallery">
-                                        <picture>
-                                            <source srcset="./img/delete/gallery-img-3.webp" type="image/webp">
-                                            <source srcset="./img/delete/gallery-img-3.jpg" type="image/jpeg">
-
-                                            <img src="./img/delete/gallery-img-3.jpg" loading="lazy" alt="">
-                                        </picture>
-                                    </div>
-                                    <div class="swiper-slide _js-btn-show-modal" data-modal="gallery">
-                                        <picture>
-                                            <source srcset="./img/delete/gallery-img-4.webp" type="image/webp">
-                                            <source srcset="./img/delete/gallery-img-4.jpg" type="image/jpeg">
-
-                                            <img src="./img/delete/gallery-img-4.jpg" loading="lazy" alt="">
-                                        </picture>
-                                    </div>
-
-                                    <div class="swiper-slide _js-btn-show-modal" data-modal="gallery">
-                                        <picture>
-                                            <source srcset="./img/delete/gallery-img-4.webp" type="image/webp">
-                                            <source srcset="./img/delete/gallery-img-4.jpg" type="image/jpeg">
-
-                                            <img src="./img/delete/gallery-img-4.jpg" loading="lazy" alt="">
-                                        </picture>
-                                    </div>
-                                    <div class="swiper-slide _js-btn-show-modal" data-modal="gallery">
-                                        <picture>
-                                            <source srcset="./img/delete/gallery-img-3.webp" type="image/webp">
-                                            <source srcset="./img/delete/gallery-img-3.jpg" type="image/jpeg">
-
-                                            <img src="./img/delete/gallery-img-3.jpg" loading="lazy" alt="">
-                                        </picture>
-                                    </div>
-                                    <div class="swiper-slide _js-btn-show-modal" data-modal="gallery">
-                                        <picture>
-                                            <source srcset="./img/delete/gallery-img-2.webp" type="image/webp">
-                                            <source srcset="./img/delete/gallery-img-2.jpg" type="image/jpeg">
-
-                                            <img src="./img/delete/gallery-img-2.jpg" loading="lazy" alt="">
-                                        </picture>
-                                    </div>
-                                    <div class="swiper-slide _js-btn-show-modal" data-modal="gallery">
-                                        <picture>
-                                            <source srcset="./img/delete/gallery-img-1.webp" type="image/webp">
-                                            <source srcset="./img/delete/gallery-img-1.jpg" type="image/jpeg">
-
-                                            <img src="./img/delete/gallery-img-1.jpg" loading="lazy" alt="">
-                                        </picture>
+                                        <div class="swiper-pagination swiper-pagination__gallery _horizontal"></div>
                                     </div>
                                 </div>
-
-                                <div class="swiper-pagination swiper-pagination__gallery _horizontal"></div>
-                            </div>
-                        </div>
+                            @endforeach
+                        @endif
                     </div>
                 </article>
                 <div class="sidebar sidebar-cards">
@@ -364,210 +140,32 @@
         </div>
     </div>
 
-    <div class="modal modal-gallery _js-modal js-modal-gallery" data-overlay>
-        <div class="modal-content">
-            <button type="button" class="modal-close _js-btn-close-modal"></button>
-            <div class="gallery-zoom__swiper swiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <picture>
-                            <source srcset="./img/delete/gallery-img-1.webp" type="image/webp">
-                            <source srcset="./img/delete/gallery-img-1.jpg" type="image/jpeg">
+    @if($galleries->count() > 0)
+        @foreach($galleries as $gallery)
+            <div class="modal modal-gallery _js-modal js-modal-gallery" data-overlay>
+                <div class="modal-content">
+                    <button type="button" class="modal-close _js-btn-close-modal"></button>
+                    <div class="gallery-zoom__swiper swiper">
+                        <div class="swiper-wrapper">
+                            @foreach($gallery->images as $image)
+                                <div class="swiper-slide">
+                                    <picture>
+                                        <source srcset="{{ $gallery->getGalleryImage($image, 'webp', 1280) }}" type="image/webp">
+                                        <source srcset="{{ $gallery->getGalleryImage($image, 'jpg', 1280) }}" type="image/jpeg">
 
-                            <img src="./img/delete/gallery-img-1.jpg" loading="lazy" alt="">
-                        </picture>
-                    </div>
-                    <div class="swiper-slide">
-                        <picture>
-                            <source srcset="./img/delete/gallery-img-2.webp" type="image/webp">
-                            <source srcset="./img/delete/gallery-img-2.jpg" type="image/jpeg">
-
-                            <img src="./img/delete/gallery-img-2.jpg" loading="lazy" alt="">
-                        </picture>
-                    </div>
-                    <div class="swiper-slide">
-                        <picture>
-                            <source srcset="./img/delete/gallery-img-3.webp" type="image/webp">
-                            <source srcset="./img/delete/gallery-img-3.jpg" type="image/jpeg">
-
-                            <img src="./img/delete/gallery-img-3.jpg" loading="lazy" alt="">
-                        </picture>
-                    </div>
-                    <div class="swiper-slide">
-                        <picture>
-                            <source srcset="./img/delete/gallery-img-4.webp" type="image/webp">
-                            <source srcset="./img/delete/gallery-img-4.jpg" type="image/jpeg">
-
-                            <img src="./img/delete/gallery-img-4.jpg" loading="lazy" alt="">
-                        </picture>
-                    </div>
-                    <div class="swiper-slide">
-                        <picture>
-                            <source srcset="./img/delete/gallery-img-4.webp" type="image/webp">
-                            <source srcset="./img/delete/gallery-img-4.jpg" type="image/jpeg">
-
-                            <img src="./img/delete/gallery-img-4.jpg" loading="lazy" alt="">
-                        </picture>
-                    </div>
-                    <div class="swiper-slide">
-                        <picture>
-                            <source srcset="./img/delete/gallery-img-3.webp" type="image/webp">
-                            <source srcset="./img/delete/gallery-img-3.jpg" type="image/jpeg">
-
-                            <img src="./img/delete/gallery-img-3.jpg" loading="lazy" alt="">
-                        </picture>
-                    </div>
-                    <div class="swiper-slide">
-                        <picture>
-                            <source srcset="./img/delete/gallery-img-2.webp" type="image/webp">
-                            <source srcset="./img/delete/gallery-img-2.jpg" type="image/jpeg">
-
-                            <img src="./img/delete/gallery-img-2.jpg" loading="lazy" alt="">
-                        </picture>
-                    </div>
-                    <div class="swiper-slide">
-                        <picture>
-                            <source srcset="./img/delete/gallery-img-1.webp" type="image/webp">
-                            <source srcset="./img/delete/gallery-img-1.jpg" type="image/jpeg">
-
-                            <img src="./img/delete/gallery-img-1.jpg" loading="lazy" alt="">
-                        </picture>
-                    </div>
-                    <div class="swiper-slide">
-                        <picture>
-                            <source srcset="./img/delete/gallery-img-1.webp" type="image/webp">
-                            <source srcset="./img/delete/gallery-img-1.jpg" type="image/jpeg">
-
-                            <img src="./img/delete/gallery-img-1.jpg" loading="lazy" alt="">
-                        </picture>
-                    </div>
-                    <div class="swiper-slide">
-                        <picture>
-                            <source srcset="./img/delete/gallery-img-2.webp" type="image/webp">
-                            <source srcset="./img/delete/gallery-img-2.jpg" type="image/jpeg">
-
-                            <img src="./img/delete/gallery-img-2.jpg" loading="lazy" alt="">
-                        </picture>
-                    </div>
-                    <div class="swiper-slide">
-                        <picture>
-                            <source srcset="./img/delete/gallery-img-3.webp" type="image/webp">
-                            <source srcset="./img/delete/gallery-img-3.jpg" type="image/jpeg">
-
-                            <img src="./img/delete/gallery-img-3.jpg" loading="lazy" alt="">
-                        </picture>
-                    </div>
-                    <div class="swiper-slide">
-                        <picture>
-                            <source srcset="./img/delete/gallery-img-4.webp" type="image/webp">
-                            <source srcset="./img/delete/gallery-img-4.jpg" type="image/jpeg">
-
-                            <img src="./img/delete/gallery-img-4.jpg" loading="lazy" alt="">
-                        </picture>
-                    </div>
-                    <div class="swiper-slide">
-                        <picture>
-                            <source srcset="./img/delete/gallery-img-4.webp" type="image/webp">
-                            <source srcset="./img/delete/gallery-img-4.jpg" type="image/jpeg">
-
-                            <img src="./img/delete/gallery-img-4.jpg" loading="lazy" alt="">
-                        </picture>
-                    </div>
-                    <div class="swiper-slide">
-                        <picture>
-                            <source srcset="./img/delete/gallery-img-3.webp" type="image/webp">
-                            <source srcset="./img/delete/gallery-img-3.jpg" type="image/jpeg">
-
-                            <img src="./img/delete/gallery-img-3.jpg" loading="lazy" alt="">
-                        </picture>
-                    </div>
-                    <div class="swiper-slide">
-                        <picture>
-                            <source srcset="./img/delete/gallery-img-2.webp" type="image/webp">
-                            <source srcset="./img/delete/gallery-img-2.jpg" type="image/jpeg">
-
-                            <img src="./img/delete/gallery-img-2.jpg" loading="lazy" alt="">
-                        </picture>
-                    </div>
-                    <div class="swiper-slide">
-                        <picture>
-                            <source srcset="./img/delete/gallery-img-1.webp" type="image/webp">
-                            <source srcset="./img/delete/gallery-img-1.jpg" type="image/jpeg">
-
-                            <img src="./img/delete/gallery-img-1.jpg" loading="lazy" alt="">
-                        </picture>
-                    </div>
-                    <div class="swiper-slide">
-                        <picture>
-                            <source srcset="./img/delete/gallery-img-1.webp" type="image/webp">
-                            <source srcset="./img/delete/gallery-img-1.jpg" type="image/jpeg">
-
-                            <img src="./img/delete/gallery-img-1.jpg" loading="lazy" alt="">
-                        </picture>
-                    </div>
-                    <div class="swiper-slide">
-                        <picture>
-                            <source srcset="./img/delete/gallery-img-2.webp" type="image/webp">
-                            <source srcset="./img/delete/gallery-img-2.jpg" type="image/jpeg">
-
-                            <img src="./img/delete/gallery-img-2.jpg" loading="lazy" alt="">
-                        </picture>
-                    </div>
-                    <div class="swiper-slide">
-                        <picture>
-                            <source srcset="./img/delete/gallery-img-3.webp" type="image/webp">
-                            <source srcset="./img/delete/gallery-img-3.jpg" type="image/jpeg">
-
-                            <img src="./img/delete/gallery-img-3.jpg" loading="lazy" alt="">
-                        </picture>
-                    </div>
-                    <div class="swiper-slide">
-                        <picture>
-                            <source srcset="./img/delete/gallery-img-4.webp" type="image/webp">
-                            <source srcset="./img/delete/gallery-img-4.jpg" type="image/jpeg">
-
-                            <img src="./img/delete/gallery-img-4.jpg" loading="lazy" alt="">
-                        </picture>
-                    </div>
-                    <div class="swiper-slide">
-                        <picture>
-                            <source srcset="./img/delete/gallery-img-4.webp" type="image/webp">
-                            <source srcset="./img/delete/gallery-img-4.jpg" type="image/jpeg">
-
-                            <img src="./img/delete/gallery-img-4.jpg" loading="lazy" alt="">
-                        </picture>
-                    </div>
-                    <div class="swiper-slide">
-                        <picture>
-                            <source srcset="./img/delete/gallery-img-3.webp" type="image/webp">
-                            <source srcset="./img/delete/gallery-img-3.jpg" type="image/jpeg">
-
-                            <img src="./img/delete/gallery-img-3.jpg" loading="lazy" alt="">
-                        </picture>
-                    </div>
-                    <div class="swiper-slide">
-                        <picture>
-                            <source srcset="./img/delete/gallery-img-2.webp" type="image/webp">
-                            <source srcset="./img/delete/gallery-img-2.jpg" type="image/jpeg">
-
-                            <img src="./img/delete/gallery-img-2.jpg" loading="lazy" alt="">
-                        </picture>
-                    </div>
-                    <div class="swiper-slide">
-                        <picture>
-                            <source srcset="./img/delete/gallery-img-1.webp" type="image/webp">
-                            <source srcset="./img/delete/gallery-img-1.jpg" type="image/jpeg">
-
-                            <img src="./img/delete/gallery-img-1.jpg" loading="lazy" alt="">
-                        </picture>
+                                        <img src="{{ $gallery->getGalleryImage($image, 'jpg', 1280) }}" loading="lazy" alt="">
+                                    </picture>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="swiper-arrow swiper-button-prev _color-blue btn-prev-zoom"></div>
+                        <div class="swiper-arrow swiper-button-next _color-blue btn-next-zoom"></div>
+                        <div class="swiper-pagination swiper-pagination__zoom-gallery _fraction"></div>
                     </div>
                 </div>
-                <div class="swiper-arrow swiper-button-prev _color-blue btn-prev-zoom"></div>
-                <div class="swiper-arrow swiper-button-next _color-blue btn-next-zoom"></div>
-                <div class="swiper-pagination swiper-pagination__zoom-gallery _fraction"></div>
             </div>
-        </div>
-    </div>
+        @endforeach
+    @endif
 
     <div class="modal modal-credentials _js-modal js-modal-bank-transfer" data-overlay >
         <div class="modal-content">
